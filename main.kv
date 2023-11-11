@@ -1,0 +1,227 @@
+#:import hex kivy.utils.get_color_from_hex
+#:import Clipboard kivy.core.clipboard.Clipboard
+
+<MainWindow>:
+	# Id
+	teip: teip
+	risultato: risultato
+	
+	#Base
+	BoxLayout:
+		orientation: 'vertical'
+		canvas:
+			Color:
+				rgba: hex("#FFFFFF")
+	
+			Rectangle:
+				size: self.size[0], self.size[1]
+				pos: self.pos
+
+		#titolo
+		BoxLayout:
+			canvas:
+				Color:
+					rgba: hex("#1C1A1B")
+	
+				RoundedRectangle:
+					size: self.size
+					pos: self.pos	
+					radius: [0,0,24,24]
+			
+			size_hint_y: 0.10
+			
+			#immagine
+			BoxLayout:
+				padding: 6
+				Image:
+					source: "py.png"
+					allow_stretch: 
+					size: self.texture_size
+			Label:
+				
+			Label:
+				text: "Python App Fer-Ati"	
+				halign: "center"
+			
+			Label:
+
+		#Barra Menu
+		MDBottomNavigation:
+			panel_color: hex("#1C1A1B")
+			selected_color_background: "orange"
+			text_color_active: "lightgrey"
+			radius: [24,24,0,0]
+
+			#!scherm
+			MDBottomNavigationItem:
+				name: 'screen 1'
+				text: 'Map'
+				icon: "map.png"
+				
+				#1Base
+				BoxLayout:
+					padding: 5
+					orientation: 'vertical'
+					canvas:
+						Color:
+							rgba: hex("#FFFFFF")
+				
+						Rectangle:
+							size: self.size[0], self.size[1]
+							pos: self.pos
+					Label:
+						size_hint: .18, .05
+
+					#Box Dati
+					MDBoxLayout:
+						orientation: 'vertical'
+						canvas:
+							Color:
+								rgba: hex("#1C1A1B")
+				
+							RoundedRectangle:
+								size: self.size
+								pos: self.pos	
+								radius: [24]
+						
+						pos_hint: {"center_x": .5, "center_y": .5}
+						BoxLayout:
+							padding: 17
+							MapView:
+								lat: 36
+								lonm: -115
+								zomm: 1000
+								radius_corners: 24
+								
+								background_color: hex("#1C1A1B")
+							
+
+			MDBottomNavigationItem:
+				name: 'Request'
+				text: 'Request'
+				#icon: 'twitter'
+
+				#2Base
+				BoxLayout:
+					padding: 5
+					orientation: 'vertical'
+					canvas:
+						Color:
+							rgba: hex("#FFFFFF")
+				
+						Rectangle:
+							size: self.size[0], self.size[1]
+							pos: self.pos
+
+					Label:
+						size_hint: .18, .05
+
+					#Box Dati
+					BoxLayout:
+						orientation: 'vertical'
+						canvas:
+							Color:
+								rgba: hex("#1C1A1B")
+				
+							RoundedRectangle:
+								size: self.size
+								pos: self.pos	
+								radius: [24]
+						
+						pos_hint: {"center_x": .5, "center_y": .5}
+
+
+			MDBottomNavigationItem:
+				name: 'Password'
+				text: 'Password'
+				icon: 'pass.png'
+
+				#3Base
+				BoxLayout:
+					padding: 5
+					orientation: 'vertical'
+					canvas:
+						Color:
+							rgba: hex("#FFFFFF")
+				
+						Rectangle:
+							size: self.size[0], self.size[1]
+							pos: self.pos
+
+					Label:
+						size_hint: .18, .05
+
+
+					#Box Dati
+					BoxLayout:
+						orientation: 'vertical'
+						canvas:
+							Color:
+								rgba: hex("#1C1A1B")
+				
+							RoundedRectangle:
+								size: self.size
+								pos: self.pos	
+								radius: [24]
+						
+						pos_hint: {"center_x": .5, "center_y": .5}
+
+						#base pass
+						BoxLayout:
+							orientation: 'vertical'
+							
+							MDTextField:
+								id: teip
+								hint_text: ""
+								pos_hint: {"center_x": .5, "center_y": .5}
+								size_hint_x: .85
+							
+							Label:
+							
+							MDLabel:
+								id: risultato
+								text: ""
+								color: hex("#FFA500")
+								allow_selection: True
+								allow_copy: True	
+								halign: "center"
+								padding: "26dp", "26dp"
+									
+							Label:
+							
+							#Bottoni
+							BoxLayout:
+								
+								Label:
+								MDRoundFlatButton:
+									text: "Random"
+									text_color: hex("#FFA500")
+									pos_hint: {"center_x": .5, "center_y": .5}
+									size_hint: (.80,.20)
+									on_press:
+										root.random_pass()
+								
+								MDRoundFlatButton:
+									text: "run"
+									text_color: hex("#FFA500")
+									pos_hint: {"center_x": .5, "center_y": .5}
+									size_hint: (.80,.20)
+									on_press:
+										root.slak()
+								
+								
+								MDRoundFlatButton:
+									text: 'Copy'
+									text_color: hex("#FFA500")
+									pos_hint: {"center_x": .5, "center_y": .5}
+									size_hint: (.80,.20)
+									on_release:
+										Clipboard.copy(risultato.text)
+								Label:
+
+
+
+
+
+
+
