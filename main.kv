@@ -1,20 +1,25 @@
+
 #:import hex kivy.utils.get_color_from_hex
 #:import Clipboard kivy.core.clipboard.Clipboard
+#:import Snackbar kivymd.uix.snackbar.Snackbar
+#Snackbar(text="Salvato!",snackbar_x="50dp",snackbar_y="10dp",size_hint_x=.7).open()
 
 <MainWindow>:
-	# Id
+	# gli id
 	teip: teip
+	searchdt: searchdt
 	risultato: risultato
-	
+	richiesta: richiesta
+
 	#Base
 	BoxLayout:
 		orientation: 'vertical'
 		canvas:
 			Color:
-				rgba: hex("#FFFFFF")
+				rgba: hex("#E4D191")
 	
 			Rectangle:
-				size: self.size[0], self.size[1]
+				size: self.size #, self.size[1]
 				pos: self.pos
 
 		#titolo
@@ -32,7 +37,7 @@
 			
 			#immagine
 			BoxLayout:
-				padding: 6
+				padding: 6			
 				Image:
 					source: "py.png"
 					allow_stretch: 
@@ -44,40 +49,40 @@
 				halign: "center"
 			
 			Label:
-
+		
 		#Barra Menu
 		MDBottomNavigation:
+			padding: 6
 			panel_color: hex("#1C1A1B")
 			selected_color_background: "orange"
 			text_color_active: "lightgrey"
-			radius: [24,24,0,0]
+			radius: [30]
 
-			#!scherm
 			MDBottomNavigationItem:
-				name: 'screen 1'
-				text: 'Map'
-				icon: "map.png"
-				
-				#1Base
+				name: 'gen'
+				text: ' News'
+				icon: ''
+
+				#3Base
 				BoxLayout:
 					padding: 5
 					orientation: 'vertical'
 					canvas:
 						Color:
-							rgba: hex("#FFFFFF")
+							rgba: hex("#E4D191")
 				
 						Rectangle:
 							size: self.size[0], self.size[1]
 							pos: self.pos
 					Label:
-						size_hint: .18, .05
+						size_hint_y: 0.01
 
 					#Box Dati
-					MDBoxLayout:
+					BoxLayout:
 						orientation: 'vertical'
 						canvas:
 							Color:
-								rgba: hex("#1C1A1B")
+								rgba: hex("#FFFFFF")
 				
 							RoundedRectangle:
 								size: self.size
@@ -85,36 +90,31 @@
 								radius: [24]
 						
 						pos_hint: {"center_x": .5, "center_y": .5}
-						BoxLayout:
-							padding: 17
-							MapView:
-								lat: 36
-								lonm: -115
-								zomm: 1000
-								radius_corners: 24
-								
-								background_color: hex("#1C1A1B")
-							
 
+						Label:
+							text: "news"
+							color: hex("#000000")
+
+			#!scherm
 			MDBottomNavigationItem:
-				name: 'Request'
-				text: 'Request'
-				#icon: 'twitter'
-
-				#2Base
+				name: 'screen 1'
+				text: 'Map'
+				icon: ''
+				
+				#1Base
 				BoxLayout:
 					padding: 5
 					orientation: 'vertical'
 					canvas:
 						Color:
-							rgba: hex("#FFFFFF")
+							rgba: hex("#E4D191")
 				
 						Rectangle:
 							size: self.size[0], self.size[1]
 							pos: self.pos
-
+				
 					Label:
-						size_hint: .18, .05
+						size_hint_y: 0.01
 
 					#Box Dati
 					BoxLayout:
@@ -129,12 +129,85 @@
 								radius: [24]
 						
 						pos_hint: {"center_x": .5, "center_y": .5}
+						
+						BoxLayout:
+							padding: 14
+							MapView: 
+								#lat: 436
+								#lonm: 115
+								lat: 36.77418821888212
+            					lon: 4.052954737671183
+								zomm: 10000
+							
+			MDBottomNavigationItem:
+				name: 'Request'
+				text: 'Requ'
+				icon: ''
 
+				#2Base
+				BoxLayout:
+					padding: 5
+					orientation: 'vertical'
+					canvas:
+						Color:
+							rgba: hex("#E4D191")
+				
+						Rectangle:
+							size: self.size[0], self.size[1]
+							pos: self.pos
+
+					Label:
+						size_hint_y: 0.01
+
+					#Box Dati
+					BoxLayout:
+						orientation: 'vertical'
+						canvas:
+							Color:
+								rgba: hex("#1C1A1B")
+				
+							RoundedRectangle:
+								size: self.size
+								pos: self.pos	
+								radius: [24]
+						
+						pos_hint: {"center_x": .5, "center_y": .5}
+						
+						#########################################
+						BoxLayout:
+							padding: 20
+							orientation: 'vertical'
+
+							MDTextField:
+								id: searchdt
+								hint_text: "Search"
+								pos_hint: {"center_x": .5, "center_y": .5}
+								#size_hint_x: .
+							
+							Label:
+								size_hint_y: 0.02
+							ScrollView:
+								MDLabel:
+									id: richiesta
+									text: "Request Search!"
+									size_hint_y: None
+									height: self.texture_size[1]
+									text_size: self.width, None
+							
+							Label:
+								size_hint_y:0.05
+							MDRoundFlatButton:
+								text: "run"
+								text_color: hex("#FFA500")
+								pos_hint: {"center_x": .5, "center_y": .5}
+								size_hint: (.35,.10)
+								on_press:
+									root.search()
 
 			MDBottomNavigationItem:
 				name: 'Password'
-				text: 'Password'
-				icon: 'pass.png'
+				text: 'Pass'
+				icon: ''
 
 				#3Base
 				BoxLayout:
@@ -142,14 +215,14 @@
 					orientation: 'vertical'
 					canvas:
 						Color:
-							rgba: hex("#FFFFFF")
+							rgba: hex("#E4D191")
 				
 						Rectangle:
 							size: self.size[0], self.size[1]
 							pos: self.pos
 
 					Label:
-						size_hint: .18, .05
+						size_hint_y: 0.01
 
 
 					#Box Dati
@@ -200,7 +273,7 @@
 									size_hint: (.80,.20)
 									on_press:
 										root.random_pass()
-								
+
 								MDRoundFlatButton:
 									text: "run"
 									text_color: hex("#FFA500")
@@ -208,7 +281,7 @@
 									size_hint: (.80,.20)
 									on_press:
 										root.slak()
-								
+
 								
 								MDRoundFlatButton:
 									text: 'Copy'
@@ -219,9 +292,43 @@
 										Clipboard.copy(risultato.text)
 								Label:
 
+			
+			MDBottomNavigationItem:
+				name: 'P'
+				text: '+-x/ '
+				icon: ''
 
+				#3Base
+				BoxLayout:
+					padding: 5
+					orientation: 'vertical'
+					canvas:
+						Color:
+							rgba: hex("#E4D191")
+				
+						Rectangle:
+							size: self.size#[0], self.size[1]
+							pos: self.pos
 
+					Label:
+						size_hint_y: 0.01
 
+					#Box Dati
+					BoxLayout:
+						orientation: 'vertical'
+						canvas:
+							Color:
+								rgba: hex("#000000")
+				
+							RoundedRectangle:
+								size: self.size
+								pos: self.pos	
+								radius: [24]
+						
+						pos_hint: {"center_x": .5, "center_y": .5}
 
-
+						BoxLayout:
+							padding: 9
+							CodeInput:
+						
 
